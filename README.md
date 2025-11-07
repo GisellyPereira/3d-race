@@ -1,4 +1,4 @@
-# 🏎️ 3D Race Challenge
+# 3D Race Challenge
 
 Um mini-game de corrida 3D desenvolvido com React, Three.js e React Three Fiber. Controle um carro vermelho em um ambiente aberto, desvie de obstáculos e alcance a linha de chegada no menor tempo possível!
 
