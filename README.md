@@ -93,36 +93,6 @@ my-3d-race/
 └── package.json             # Dependências do projeto
 ```
 
-## 🎨 Componentes Principais
-
-### Car.tsx
-Gerencia o carro, incluindo:
-- Física arcade com aceleração e rotação
-- Controles de teclado
-- Sistema de suspensão
-- Detecção de queda
-- Animações das rodas
-
-### CameraRig.tsx
-Sistema de câmera que:
-- Segue o carro em terceira pessoa
-- Suaviza movimentos com interpolação
-- Inclina levemente nas curvas (banking effect)
-- Mantém foco no carro
-
-### Obstacles.tsx
-Obstáculos do jogo:
-- **Árvores**: Troncos marrons com copas amarelas
-- **Pedras**: Formações brancas irregulares
-- **Muros**: Barreiras de tijolos brancos
-
-### GameCanvas.tsx
-Configuração principal:
-- Canvas Three.js com otimizações
-- Sistema de iluminação (ambient, directional, point lights)
-- Sky e Environment
-- Physics world com Rapier
-
 ## 🔧 Como Funciona
 
 ### Three.js
