@@ -9,7 +9,6 @@ const TRACK_LENGTH = 200;
 const TRACK_TOP_Y = 0.1;
 
 export function Track() {
-  // Material do chão laranja - estilo Bruno Simon
   const groundMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
@@ -26,7 +25,6 @@ export function Track() {
 
   return (
     <group>
-      {/* Chão infinito laranja - estilo Bruno Simon */}
       <RigidBody
         type="fixed"
         colliders="cuboid"
@@ -39,7 +37,6 @@ export function Track() {
         </mesh>
       </RigidBody>
 
-      {/* Chão visual com gradiente laranja */}
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, TRACK_TOP_Y + 0.01, trackCenterZ]}
@@ -61,7 +58,6 @@ export function Track() {
 function StartZone() {
   return (
     <group>
-      {/* Pista física na zona de largada */}
       <RigidBody
         type="fixed"
         colliders="cuboid"
@@ -78,7 +74,6 @@ function StartZone() {
         </mesh>
       </RigidBody>
       
-      {/* Marcador visual de largada */}
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, TRACK_TOP_Y + 0.05, 17]}
@@ -94,7 +89,6 @@ function StartZone() {
         />
       </mesh>
       
-      {/* Linha de largada */}
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, TRACK_TOP_Y + 0.06, 12]}

@@ -29,7 +29,6 @@ export function Car({
   const hasFallen = useRef(false);
   const wheelRefs = useRef<(THREE.Group | null)[]>([]);
 
-  // Estado do carro - sistema direto sem interpolações desnecessárias
   const speed = useRef(0);
   const rotationY = useRef(0);
 
@@ -64,7 +63,6 @@ export function Car({
 
     const translation = body.translation();
     
-    // Suspensão mínima - apenas para manter na pista
     const targetY = TRACK_TOP_Y + 0.25;
     const heightDiff = targetY - translation.y;
     if (heightDiff > 0.1) {
@@ -72,7 +70,6 @@ export function Car({
       body.applyImpulse({ x: 0, y: suspensionForce * delta, z: 0 }, true);
     }
     
-    // Detecção de queda
     if (translation.y < TRACK_TOP_Y - 2 && !hasFallen.current) {
       hasFallen.current = true;
       resetCar();
@@ -89,20 +86,17 @@ export function Car({
 
     const { forward, backward, left, right, brake } = getKeys();
     
-    // Parâmetros de física - otimizados para responsividade
     const maxSpeed = 48;
     const acceleration = 150;
     const deceleration = 60;
     const turnSpeed = 8.5;
     const maxTurn = 1.1;
 
-    // Aceleração/Desaceleração DIRETA - sem interpolação lenta
     if (forward) {
       speed.current = Math.min(speed.current + acceleration * delta, maxSpeed);
     } else if (backward) {
       speed.current = Math.max(speed.current - acceleration * 0.6 * delta, -maxSpeed * 0.65);
     } else {
-      // Desaceleração natural mais rápida
       const friction = brake ? deceleration * 3.5 : deceleration * 0.9;
       if (speed.current > 0) {
         speed.current = Math.max(speed.current - friction * delta, 0);
@@ -111,7 +105,6 @@ export function Car({
       }
     }
 
-    // Rotação DIRETA e responsiva
     if (left || right) {
       const turnDirection = right ? 1 : -1;
       const speedFactor = Math.max(0.5, Math.abs(speed.current) / maxSpeed);
@@ -119,11 +112,9 @@ export function Car({
       rotationY.current += turnAmount;
       rotationY.current = THREE.MathUtils.clamp(rotationY.current, -maxTurn, maxTurn);
     } else {
-      // Retorno ao centro mais rápido
       rotationY.current *= 0.88;
     }
 
-    // Aplicar rotação ao corpo - direto e preciso
     const currentRot = body.rotation();
     const currentQuaternion = new THREE.Quaternion(
       currentRot.x,
@@ -133,7 +124,6 @@ export function Car({
     );
     const euler = new THREE.Euler().setFromQuaternion(currentQuaternion);
     
-    // Rotação baseada em velocidade - mais responsiva
     const rotationSpeed = 6.5;
     const speedMultiplier = Math.max(0.5, Math.abs(speed.current) / maxSpeed);
     const rotationDelta = rotationY.current * delta * rotationSpeed * speedMultiplier;
@@ -145,26 +135,22 @@ export function Car({
     );
     body.setRotation(newQuaternion, true);
 
-    // Calcular direção de movimento
     const forwardVector = new THREE.Vector3(0, 0, -1)
       .applyQuaternion(newQuaternion)
       .normalize();
 
-    // Aplicar velocidade DIRETAMENTE - sem interpolações extras
     const currentVel = body.linvel();
     const targetVelX = forwardVector.x * speed.current;
     const targetVelZ = forwardVector.z * speed.current;
     
-    // Interpolação muito rápida para suavidade sem travamento
     const velLerp = 1 - Math.pow(0.1, delta);
     const newVelX = THREE.MathUtils.lerp(currentVel.x, targetVelX, velLerp);
     const newVelZ = THREE.MathUtils.lerp(currentVel.z, targetVelZ, velLerp);
 
-    // Aplicar velocidade horizontal diretamente
     body.setLinvel(
       {
         x: newVelX,
-        y: currentVel.y, // Manter Y da física
+        y: currentVel.y,
         z: newVelZ,
       },
       true,
@@ -173,7 +159,6 @@ export function Car({
     const currentSpeed = Math.abs(speed.current);
     onSpeedChange(currentSpeed);
 
-    // Animar rodas
     wheelRefs.current.forEach((wheel) => {
       if (wheel) {
         wheel.rotation.x += currentSpeed * delta * 4;
@@ -201,7 +186,6 @@ export function Car({
       userData={{ type: 'car' }}
     >
       <group position={[0, 0, 0]}>
-        {/* Corpo principal - Buggy vermelho compacto estilo Bruno Simon */}
         <mesh castShadow receiveShadow>
           <boxGeometry args={[1.2, 0.5, 2.0]} />
           <meshStandardMaterial
@@ -211,7 +195,6 @@ export function Car({
           />
         </mesh>
         
-        {/* Teto - laranja/marrom escuro */}
         <mesh castShadow position={[0, 0.35, -0.15]}>
           <boxGeometry args={[1.0, 0.3, 1.0]} />
           <meshStandardMaterial
@@ -221,7 +204,6 @@ export function Car({
           />
         </mesh>
         
-        {/* Para-choque frontal - escuro */}
         <mesh castShadow position={[0, 0.25, 1.0]}>
           <boxGeometry args={[1.15, 0.2, 0.25]} />
           <meshStandardMaterial 
@@ -231,7 +213,6 @@ export function Car({
           />
         </mesh>
         
-        {/* Rodas médias e pretas - estilo off-road */}
         {[-0.6, 0.6].map((x, i) =>
           [-0.7, 0.7].map((z, j) => {
             const wheelIndex = i * 2 + j;
@@ -243,7 +224,6 @@ export function Car({
                 }}
                 position={[x, -0.25, z]}
               >
-                {/* Roda principal */}
                 <mesh castShadow rotation={[Math.PI / 2, 0, 0]}>
                   <cylinderGeometry args={[0.25, 0.25, 0.3, 12]} />
                   <meshStandardMaterial
@@ -252,7 +232,6 @@ export function Car({
                     metalness={0.1}
                   />
                 </mesh>
-                {/* Pneu com textura */}
                 <mesh
                   castShadow
                   rotation={[Math.PI / 2, 0, 0]}

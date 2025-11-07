@@ -55,11 +55,9 @@ export function GameCanvas({
           performance={{ min: 0.8 }}
           frameloop="always"
         >
-          {/* Fundo laranja gradiente - estilo Bruno Simon */}
           <color attach="background" args={[0xff8c42]} />
           <fog attach="fog" args={[0xff8c42, 60, 200]} />
           
-          {/* Iluminação suave - estilo Bruno Simon */}
           <ambientLight intensity={0.9} />
           <directionalLight
             castShadow

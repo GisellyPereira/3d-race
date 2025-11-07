@@ -5,8 +5,8 @@ import { useFrame } from '@react-three/fiber';
 import { CuboidCollider } from '@react-three/rapier';
 import * as THREE from 'three';
 
-const TRACK_WIDTH = 50; // Mesma largura da pista aberta
-const FINISH_Z = -195; // Ajustado para a pista mais longa
+const TRACK_WIDTH = 50;
+const FINISH_Z = -195;
 
 type FinishLineProps = {
   gameState: 'idle' | 'running' | 'win' | 'lose';

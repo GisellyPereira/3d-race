@@ -1,36 +1,153 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏎️ 3D Race Challenge
 
-## Getting Started
+Um mini-game de corrida 3D desenvolvido com React, Three.js e React Three Fiber. Controle um carro vermelho em um ambiente aberto, desvie de obstáculos e alcance a linha de chegada no menor tempo possível!
 
-First, run the development server:
+![3D Race Game](https://img.shields.io/badge/Three.js-3D%20Game-000000?style=for-the-badge&logo=three.js)
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=for-the-badge&logo=react)
+![Next.js](https://img.shields.io/badge/Next.js-16.0.1-000000?style=for-the-badge&logo=next.js)
 
+## 🎮 Demo
+
+🎮 **[Jogue Agora](https://3d-race.netlify.app/)** 🎮
+
+O jogo está disponível online! Acesse o link acima para jogar diretamente no navegador.
+
+## 🎮 Sobre o Projeto
+
+Este projeto é uma experiência de aprendizado com Three.js e desenvolvimento de jogos 3D no navegador. O jogo apresenta um carro controlável em um ambiente 3D com física realista, obstáculos variados e um sistema de câmera em terceira pessoa.
+
+## ✨ Funcionalidades
+
+- 🚗 **Carro Controlável**: Controle total com teclado (WASD ou setas)
+- 🎯 **Obstáculos Variados**: Árvores, pedras e muros espalhados pela pista
+- 🏁 **Sistema de Chegada**: Linha de chegada com detecção automática
+- 📊 **HUD Completo**: Tempo, velocidade e status em tempo real
+- 🎥 **Câmera Dinâmica**: Segue o carro em terceira pessoa com suavização
+- ⚡ **Física Realista**: Gravidade, colisões e movimento fluido
+- 🎨 **Visual Estilo Bruno Simon**: Design low-poly minimalista
+
+## 🛠️ Tecnologias Utilizadas
+
+### Core
+- **React 19.2.0** - Framework UI
+- **Next.js 16.0.1** - Framework React com SSR
+- **TypeScript** - Tipagem estática
+
+### 3D & Física
+- **Three.js 0.181.0** - Biblioteca 3D para WebGL
+- **@react-three/fiber 9.4.0** - Renderizador React para Three.js
+- **@react-three/drei 10.7.6** - Helpers e utilitários para R3F
+- **@react-three/rapier 2.2.0** - Motor de física e colisões
+
+### Estilização
+- **Tailwind CSS 4** - Framework CSS utility-first
+
+## 📦 Instalação
+
+1. Clone o repositório:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/seu-usuario/my-3d-race.git
+cd my-3d-race
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instale as dependências:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Execute o servidor de desenvolvimento:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Abra [http://localhost:3000](http://localhost:3000) no navegador
 
-## Learn More
+## 🎮 Controles
 
-To learn more about Next.js, take a look at the following resources:
+| Tecla | Ação |
+|-------|------|
+| **W** ou **↑** | Acelerar |
+| **S** ou **↓** | Ré |
+| **A** ou **←** | Virar à esquerda |
+| **D** ou **→** | Virar à direita |
+| **Espaço** | Frear |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> ⚠️ **Nota**: Por enquanto, o jogo está disponível apenas para computador. O controle mobile ainda não está implementado.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🏗️ Estrutura do Projeto
 
-## Deploy on Vercel
+```
+my-3d-race/
+├── app/
+│   ├── components/
+│   │   ├── Car.tsx           # Componente do carro com física
+│   │   ├── CameraRig.tsx      # Sistema de câmera em terceira pessoa
+│   │   ├── Track.tsx         # Pista e chão
+│   │   ├── Obstacles.tsx     # Árvores, pedras e muros
+│   │   ├── FinishLine.tsx    # Linha de chegada
+│   │   ├── GameCanvas.tsx    # Canvas principal e configuração 3D
+│   │   └── types.ts          # Tipos TypeScript
+│   ├── page.tsx              # Página principal e lógica do jogo
+│   └── layout.tsx            # Layout da aplicação
+├── public/                   # Arquivos estáticos
+└── package.json             # Dependências do projeto
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Componentes Principais
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Car.tsx
+Gerencia o carro, incluindo:
+- Física arcade com aceleração e rotação
+- Controles de teclado
+- Sistema de suspensão
+- Detecção de queda
+- Animações das rodas
+
+### CameraRig.tsx
+Sistema de câmera que:
+- Segue o carro em terceira pessoa
+- Suaviza movimentos com interpolação
+- Inclina levemente nas curvas (banking effect)
+- Mantém foco no carro
+
+### Obstacles.tsx
+Obstáculos do jogo:
+- **Árvores**: Troncos marrons com copas amarelas
+- **Pedras**: Formações brancas irregulares
+- **Muros**: Barreiras de tijolos brancos
+
+### GameCanvas.tsx
+Configuração principal:
+- Canvas Three.js com otimizações
+- Sistema de iluminação (ambient, directional, point lights)
+- Sky e Environment
+- Physics world com Rapier
+
+## 🔧 Como Funciona
+
+### Three.js
+Usado para criar e renderizar todos os elementos 3D:
+- Geometrias (`boxGeometry`, `cylinderGeometry`, `coneGeometry`, `dodecahedronGeometry`)
+- Materiais (`meshStandardMaterial` com propriedades de metalness e roughness)
+- Iluminação e sombras
+- Sky e ambiente
+
+### React Three Fiber
+Fornece a integração React com Three.js:
+- Componentes declarativos para elementos 3D
+- Hook `useFrame` para animações por frame
+- Gerenciamento de estado e ciclo de vida
+
+### @react-three/rapier
+Motor de física responsável por:
+- Gravidade (`gravity={[0, -9.81, 0]}`)
+- Colisões entre objetos
+- Corpos rígidos (`RigidBody`)
+- Detecção de interseções (linha de chegada)
+
+### CameraRig
+Sistema personalizado que:
+- Calcula posição da câmera baseada na posição do carro
+- Usa `lerp` para suavizar movimentos
+- Aplica efeito de banking nas curvas
+- Mantém a câmera sempre focada no carro

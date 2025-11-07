@@ -34,19 +34,16 @@ export function CameraRig({ carRef, isRunning }: CameraRigProps) {
       .applyQuaternion(quaternion)
       .normalize();
 
-    // Posição da câmera - estável e suave
     targetPosition.current
       .copy(new THREE.Vector3(translation.x, translation.y, translation.z))
       .add(forward.clone().multiplyScalar(-10))
       .add(new THREE.Vector3(0, 4.5, 0));
 
-    // Ponto de foco - ligeiramente à frente do carro
     targetLookAt.current
       .copy(new THREE.Vector3(translation.x, translation.y, translation.z))
       .add(forward.clone().multiplyScalar(2))
       .add(new THREE.Vector3(0, 1.5, 0));
 
-    // Inicialização única
     if (!isInitialized.current) {
       smoothedLookAt.current.copy(targetLookAt.current);
       smoothedPosition.current.copy(targetPosition.current);
@@ -56,18 +53,15 @@ export function CameraRig({ carRef, isRunning }: CameraRigProps) {
       return;
     }
 
-    // Interpolação rápida mas suave - sem travamento
     const positionLerp = 1 - Math.pow(0.05, delta);
     const lookAtLerp = 1 - Math.pow(0.08, delta);
     
     smoothedPosition.current.lerp(targetPosition.current, positionLerp);
     smoothedLookAt.current.lerp(targetLookAt.current, lookAtLerp);
     
-    // Aplicar posição e rotação de forma estável
     camera.position.copy(smoothedPosition.current);
     camera.lookAt(smoothedLookAt.current);
 
-    // Banking effect muito sutil
     const banking = THREE.MathUtils.clamp(forward.x * 0.08, -0.1, 0.1);
     camera.rotation.z = THREE.MathUtils.lerp(
       camera.rotation.z,

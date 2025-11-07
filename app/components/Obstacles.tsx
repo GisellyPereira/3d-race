@@ -8,7 +8,6 @@ import * as THREE from 'three';
 export function Obstacles() {
   return (
     <group>
-      {/* Árvores amarelas claras com troncos marrons - estilo Bruno Simon (maiores) */}
       <Tree position={[-8, 1.0, -10]} />
       <Tree position={[6, 1.0, -15]} />
       <Tree position={[-5, 1.0, -25]} />
@@ -30,7 +29,6 @@ export function Obstacles() {
       <Tree position={[-4, 1.0, -145]} />
       <Tree position={[7, 1.0, -150]} />
       
-      {/* Pedras brancas irregulares - maiores */}
       <Rock position={[-3, 0.4, -20]} scale={[1.2, 0.9, 1.3]} />
       <Rock position={[4, 0.4, -22]} scale={[1.0, 0.8, 1.1]} />
       <Rock position={[-2, 0.4, -35]} scale={[1.1, 0.9, 1.2]} />
@@ -50,7 +48,6 @@ export function Obstacles() {
       <Rock position={[-4, 0.4, -140]} scale={[1.1, 0.9, 1.2]} />
       <Rock position={[2, 0.4, -142]} scale={[1.0, 0.8, 1.1]} />
       
-      {/* Muros brancos de tijolos - estilo Bruno Simon (maiores) */}
       <BrickWall position={[-6, 0.8, -18]} rotation={0} length={5} />
       <BrickWall position={[6, 0.8, -18]} rotation={0} length={5} />
       <BrickWall position={[-4, 0.8, -28]} rotation={Math.PI / 4} length={4} />
@@ -83,7 +80,6 @@ function Tree({ position }: TreeProps) {
       userData={{ type: 'obstacle' }}
     >
       <group>
-        {/* Tronco marrom - maior */}
         <mesh castShadow receiveShadow position={[0, 0.5, 0]}>
           <cylinderGeometry args={[0.25, 0.25, 1.0, 8]} />
           <meshStandardMaterial
@@ -92,7 +88,6 @@ function Tree({ position }: TreeProps) {
             metalness={0.0}
           />
         </mesh>
-        {/* Copa amarela clara - maior e mais trapezoidal */}
         <mesh castShadow receiveShadow position={[0, 1.5, 0]}>
           <coneGeometry args={[1.2, 2.0, 6]} />
           <meshStandardMaterial
@@ -114,7 +109,6 @@ type RockProps = {
 function Rock({ position, scale }: RockProps) {
   const rockGeometry = useMemo(() => {
     const geometry = new THREE.DodecahedronGeometry(0.6, 0);
-    // Deformar para parecer mais irregular
     const positions = geometry.attributes.position;
     for (let i = 0; i < positions.count; i++) {
       const x = positions.getX(i);
@@ -172,7 +166,7 @@ function BrickWall({ position, rotation, length }: BrickWallProps) {
     for (let col = 0; col < cols; col++) {
       const offsetX = (col - cols / 2) * brickWidth;
       const offsetY = row * brickHeight;
-      const offsetZ = (row % 2) * (brickWidth / 2); // Offset alternado
+      const offsetZ = (row % 2) * (brickWidth / 2);
       
       bricks.push(
         <mesh
@@ -200,7 +194,6 @@ function BrickWall({ position, rotation, length }: BrickWallProps) {
       rotation={[0, rotation, 0]}
       userData={{ type: 'obstacle' }}
     >
-      {/* Collider invisível para o muro completo */}
       <mesh visible={false}>
         <boxGeometry args={[wallWidth, wallHeight, brickDepth]} />
       </mesh>
