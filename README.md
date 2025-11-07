@@ -1,4 +1,4 @@
-# 3D Race Challenge
+# 3D Race
 
 Um mini-game de corrida 3D desenvolvido com React, Three.js e React Three Fiber. Controle um carro vermelho em um ambiente aberto, desvie de obstáculos e alcance a linha de chegada no menor tempo possível!
 
@@ -42,26 +42,6 @@ Este projeto é uma experiência de aprendizado com Three.js e desenvolvimento d
 ### Estilização
 - **Tailwind CSS 4** - Framework CSS utility-first
 
-## 📦 Instalação
-
-1. Clone o repositório:
-```bash
-git clone https://github.com/seu-usuario/my-3d-race.git
-cd my-3d-race
-```
-
-2. Instale as dependências:
-```bash
-npm install
-```
-
-3. Execute o servidor de desenvolvimento:
-```bash
-npm run dev
-```
-
-4. Abra [http://localhost:3000](http://localhost:3000) no navegador
-
 ## 🎮 Controles
 
 | Tecla | Ação |
@@ -93,31 +73,22 @@ my-3d-race/
 └── package.json             # Dependências do projeto
 ```
 
-## 🔧 Como Funciona
+## 📦 Instalação
 
-### Three.js
-Usado para criar e renderizar todos os elementos 3D:
-- Geometrias (`boxGeometry`, `cylinderGeometry`, `coneGeometry`, `dodecahedronGeometry`)
-- Materiais (`meshStandardMaterial` com propriedades de metalness e roughness)
-- Iluminação e sombras
-- Sky e ambiente
+1. Clone o repositório:
+```bash
+git clone https://github.com/seu-usuario/my-3d-race.git
+cd my-3d-race
+```
 
-### React Three Fiber
-Fornece a integração React com Three.js:
-- Componentes declarativos para elementos 3D
-- Hook `useFrame` para animações por frame
-- Gerenciamento de estado e ciclo de vida
+2. Instale as dependências:
+```bash
+npm install
+```
 
-### @react-three/rapier
-Motor de física responsável por:
-- Gravidade (`gravity={[0, -9.81, 0]}`)
-- Colisões entre objetos
-- Corpos rígidos (`RigidBody`)
-- Detecção de interseções (linha de chegada)
+3. Execute o servidor de desenvolvimento:
+```bash
+npm run dev
+```
 
-### CameraRig
-Sistema personalizado que:
-- Calcula posição da câmera baseada na posição do carro
-- Usa `lerp` para suavizar movimentos
-- Aplica efeito de banking nas curvas
-- Mantém a câmera sempre focada no carro
+4. Abra [http://localhost:3000](http://localhost:3000) no navegador
