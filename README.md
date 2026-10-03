@@ -4,6 +4,8 @@ Projeto pessoal criado exclusivamente para **testar e aprender Three.js na prát
 
 A ideia foi experimentar cenas tridimensionais, carregamento de modelos, iluminação, materiais, câmeras, controles e regras de jogo. O resultado é uma corrida costeira com três pistas, dificuldade crescente, obstáculos, checkpoints e recordes locais, feita com **Three.js, TypeScript e Vite**.
 
+[Jogar Costa Sprint](https://costa-sprint.netlify.app/)
+
 ![Tela inicial do Costa Sprint](docs/costa-sprint.png)
 
 ## Executar
